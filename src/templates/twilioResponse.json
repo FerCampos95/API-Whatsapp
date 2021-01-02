@@ -1,0 +1,24 @@
+{
+    "sid": "SM4b9d1d382da0401aa53874e469616dc9",
+    "date_created": "Thu, 12 Nov 2020 19:17:41 +0000",
+    "date_updated": "Thu, 12 Nov 2020 19:17:41 +0000",
+    "date_sent": null,
+    "account_sid": "ACdc48bc90b39177d38c77f511bec3a338",
+    "to": "whatsapp:+5491167070753",
+    "from": "whatsapp:+14155238886",
+    "messaging_service_sid": null,
+    "body": "Probando 123",
+    "status": "queued",
+    "num_segments": "1",
+    "num_media": "0",
+    "direction": "outbound-api",
+    "api_version": "2010-04-01",
+    "price": null,
+    "price_unit": null,
+    "error_code": null,
+    "error_message": null,
+    "uri": "/2010-04-01/Accounts/ACdc48bc90b39177d38c77f511bec3a338/Messages/SM4b9d1d382da0401aa53874e469616dc9.json",
+    "subresource_uris": {
+        "media": "/2010-04-01/Accounts/ACdc48bc90b39177d38c77f511bec3a338/Messages/SM4b9d1d382da0401aa53874e469616dc9/Media.json"
+    }
+}

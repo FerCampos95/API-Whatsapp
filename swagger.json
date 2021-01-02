@@ -1,0 +1,507 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentación de API Whatsapp",
+        "description": "Guía para el uso de API REST para realizar consultas. Las rutas requieren autenticación previa, obtenga un token desde la ruta /login e ingréselo en Authorize",
+        "version": "0.2.0"
+    },
+    "servers": [
+        {
+            "url": "se-carga-en-config.js",
+            "description": "API WHATSAPP"
+        }
+    ],
+    "components":{
+        "securitySchemes":{
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }            
+        }  
+    },
+  
+    "paths": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Se solicita un token de acceso para utilizar los servicios REST",
+                "operationId": "getToken",
+                "requestBody": {
+                    "description": "Se envía una petición de token, identificandose con un usuario y contraseña",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "usuario"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "contraseña"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "404": {
+                        "description": "Usuario y contraseña incorrectos",
+                        "content": {}
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/conectarse": {
+            "post": {
+                "tags": [
+                    "Conectar Número"
+                ],
+                "security":[
+                    {"bearerAuth": []}
+                ],
+                "summary": "Se hace el pedido del código QR para la autorización de whatsapp web",
+                "operationId": "getQR",
+                "responses": {
+                    "404": {
+                        "description": "No se encontraron datos",
+                        "content": {}
+                    },
+                    "200":{
+                        "description":"Logo image in PNG format",
+                        "content":{
+                           "image/*":{
+                              "schema":{
+                                 "type":"string",
+                                 "format":"binary",
+                                 "name": "image",
+                                 "container_format":{
+                                     "enum":[
+                                         null,
+                                         "png",
+                                         "svg"
+                                     ]
+                                 }
+                              }
+                           }
+                        }
+                     }
+                }
+            }
+        },
+        "/conectarsesinqr": {
+            "post": {
+                "tags": [
+                    "Conectar Número"
+                ],
+                "security":[
+                    {"bearerAuth": []}
+                ],
+                "summary": "Se utiliza la ultima conexión realizada a través de QR, o los datos de autorización enviados en el body",
+                "requestBody": {
+                    "description": "JSON con numero y body del mensaje",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "autorizacion":{
+                                    "type":"object",
+                                    "properties": {
+                                        "clientID": {
+                                        "type": "string"
+                                        },
+                                        "serverToken": {
+                                        "type": "string"
+                                        },
+                                        "clientToken": {
+                                        "type": "string"
+                                        },
+                                        "encKey": {
+                                        "type": "string"
+                                        },
+                                        "macKey": {
+                                        "type": "string"
+                                        }
+                                    }
+                                }
+                            },
+                            "example":{
+                                "autorizacion":{
+                                    "clientID":"u1z96CHuJ1HnhQ/VK1cigA==",
+                                    "serverToken":"1@/5iWQP49HJGf2kFSL+Vh8zW8wmRAwW99cTWhJVX8VEK95CALx3f4fnUZMa/p/0bHfkVubYKuF2wgSw==",
+                                    "clientToken":"lua9z3YqpT4aUbwWdu79ZxL0wn01jtRwh524q5OnpV0=",
+                                    "encKey":"Rp+/flZteSPXGXnWpiyuK6xMUGwn0u7L6YnSNmxqfjQ=",
+                                    "macKey":"mzJiu7tiG1jNmWDpAj2CLKh8S8daXXDZ9bBVlZUP4WI="
+                                }
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "operationId": "iniciarSinQR",
+                "responses": {
+                    "404": {
+                        "description": "No se encontraron datos",
+                        "content": {}
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/chequearconexion": {
+            "get": {
+                "tags": [
+                    "Información"
+                ],
+                "security":[
+                    {"bearerAuth": []}
+                ],
+                "summary": "Se consulta si esta la conexión activa.",
+                "operationId": "chequearConexion",
+                "responses": {
+                    "404": {
+                        "description": "No se encontraron datos",
+                        "content": {}
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/desconectarse": {
+            "get": {
+                "tags": [
+                    "Desconectar Número"
+                ],
+                "security":[
+                    {"bearerAuth": []}
+                ],
+                "summary": "Cierra la conexión con el servicio de Whatsapp-Web",
+                "operationId": "cerrarConexion",
+                "responses": {
+                    "404": {
+                        "description": "No se encontraron datos",
+                        "content": {}
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/enviarmensaje": {
+            "post": {
+                "tags": [
+                    "Enviar Mensaje"
+                ],
+                "security":[
+                    {"bearerAuth": []}
+                ],
+                "summary": "Se envia el body al numero especificado",
+                "operationId": "enviarMensaje",
+                "requestBody": {
+                    "description": "JSON con numero y body del mensaje",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type":"object",
+                                "properties": {
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "5491167070753"
+                                    },
+                                    "body": {
+                                        "type":"string",
+                                        "example": "Mensaje a enviar"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "404": {
+                        "description": "Error al enviar",
+                        "content": {}
+                    },
+                    "200": {
+                        "description": "OK mensaje enviado",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/enviarmensajexid": {
+            "post": {
+                "tags": [
+                    "Enviar Mensaje"
+                ],
+                "security":[
+                    {"bearerAuth": []}
+                ],
+                "summary": "Se envia el body al jid especificado",
+                "operationId": "enviarMensaje",
+                "requestBody": {
+                    "description": "JSON con numero y body del mensaje",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type":"object",
+                                "properties": {
+                                    "jid": {
+                                        "type": "string",
+                                        "example": "5491167070753@c.us"
+                                    },
+                                    "body": {
+                                        "type":"string",
+                                        "example": "Mensaje a enviar"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "404": {
+                        "description": "Error al enviar",
+                        "content": {}
+                    },
+                    "200": {
+                        "description": "OK mensaje enviado",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/enviarbucle": {
+            "post": {
+                "tags": [
+                    "Enviar Mensaje"
+                ],
+                "security":[
+                    {"bearerAuth": []}
+                ],
+                "summary": "Se enviara el MESSAGE al numero indicado o, si el campo NAME se completa se buscará ese contacto o grupo",
+                "operationId": "bucleAutomatizado",
+                "requestBody": {
+                    "description": "JSON con número o name del contacto/grupo y body del mensaje",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type":"object",
+                                "properties": {
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "5491167070753"
+                                    },
+                                    "name": {
+                                        "type":"string",
+                                        "example": ""
+                                    },
+                                    "message": {
+                                        "type":"string",
+                                        "example": "Mensaje del bucle a enviar"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "404": {
+                        "description": "Error al enviar",
+                        "content": {}
+                    },
+                    "200": {
+                        "description": "OK mensaje enviado",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/notificacionautomatizada": {
+            "post": {
+                "tags": [
+                    "Enviar Mensaje"
+                ],
+                "security":[
+                    {"bearerAuth": []}
+                ],
+                "summary": "Se enviaran los datos del JSON al numero indicado. ",
+                "operationId": "notificacionAutomatizadda",
+                "requestBody": {
+                    "description": "JSON con todos los datos a enviar y el teléfono al que se notificará, el Json se puede modificar siempre y cuando se mantenga el mismo esquema.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type":"object",
+                                "properties":{
+                                   "phone":{
+                                      "type":"string"
+                                   },
+                                   "datos":{
+                                      "type":"array",
+                                      "items":[
+                                         {
+                                            "type":"object",
+                                            "properties":{
+                                               "Datos-del-Comprador":{
+                                                  "type":"object",
+                                                  "properties":{
+                                                     "telefono":{
+                                                        "type":"string"
+                                                     },
+                                                     "direccion":{
+                                                        "type":"string"
+                                                     },
+                                                     "email":{
+                                                        "type":"string"
+                                                     }
+                                                  }
+                                               }
+                                            }
+                                         },
+                                         {
+                                            "type":"object",
+                                            "properties":{
+                                               "Datos-del-Producto":{
+                                                  "type":"object",
+                                                  "properties":{
+                                                     "producto":{
+                                                        "type":"string"
+                                                     },
+                                                     "cantidad":{
+                                                        "type":"integer"
+                                                     },
+                                                     "peso":{
+                                                        "type":"string"
+                                                     }
+                                                  }
+                                               }
+                                            }
+                                         }
+                                      ]
+                                   }
+                                }
+                            },
+                            "example":{
+                                "phone":"5491167070753",
+                                "datos":[
+                                   {
+                                      "Datos del Comprador":{
+                                         "Teléfono":"1167070753",
+                                         "Dirección":"callefalsa 123",
+                                         "Email":"email@email.com"
+                                      }
+                                   },
+                                   {
+                                      "Datos del Producto":{
+                                         "Producto":"Desarrollador FullStack",
+                                         "Cantidad":1,
+                                         "Precio":"$1000"
+                                      }
+                                   }
+                                ]
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "404": {
+                        "description": "Error al enviar",
+                        "content": {}
+                    },
+                    "200": {
+                        "description": "OK mensaje enviado",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/sesionesactivas": {
+            "get": {
+                "tags": [
+                    "Información"
+                ],
+                "security":[
+                    {"bearerAuth": []}
+                ],
+                "summary": "Devuelve las sesiones actualmente activas para iniciar sesión.",
+                "operationId": "consultasesiones",
+                "responses": {
+                    "404": {
+                        "description": "Error al enviar",
+                        "content": {}
+                    },
+                    "200": {
+                        "description": "OK mensaje enviado",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/obteneridcontactos": {
+            "get": {
+                "tags": [
+                    "Información"
+                ],
+                "security":[
+                    {"bearerAuth": []}
+                ],
+                "summary": "Devuelve todos los contactos con su JID.",
+                "operationId": "obtener ids",
+                "responses": {
+                    "404": {
+                        "description": "Error al enviar",
+                        "content": {}
+                    },
+                    "200": {
+                        "description": "OK mensaje enviado",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/obteneridgrupos": {
+            "get": {
+                "tags": [
+                    "Información"
+                ],
+                "security":[
+                    {"bearerAuth": []}
+                ],
+                "summary": "Devuelve todos los grupos con su JID.",
+                "operationId": "obtener ids",
+                "responses": {
+                    "404": {
+                        "description": "Error al enviar",
+                        "content": {}
+                    },
+                    "200": {
+                        "description": "OK mensaje enviado",
+                        "content": {}
+                    }
+                }
+            }
+        }
+    }
+}

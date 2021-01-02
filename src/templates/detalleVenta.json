@@ -1,0 +1,27 @@
+{
+    "productos":[
+        {
+            "code_internal":"",
+            "ean13":"",
+            "laboratory":"",
+            "name":"",
+            "principe_active":"",
+            "concentration":"",
+            "quantity_per_container":"",
+            "unit_price":"",
+            "total":""
+        }
+    ],
+    "farmacia":{
+        "name_edited_pharmacy":""
+    },
+    "pago":{
+        "tipo_cuotas": "",
+        "num_cuotas": "",
+        "numero_tarjeta": "",
+        "monto": "",
+        "fecha_aprobacion": "",
+        "numero_operacion": "",
+        "trx_id": ""
+    }
+}
