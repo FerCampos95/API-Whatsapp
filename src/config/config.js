@@ -14,7 +14,7 @@ module.exports = {
         //url: "http://localhost",
         url: "https://api-whatsapp-fer.herokuapp.com",
         port: process.env.PORT || 4001,
-        secretKey: 'epi_secret_key',
+        secretKey: 'secret_key',
         tokenConfig: {
             expiration: 60 * 60 * 60
         }

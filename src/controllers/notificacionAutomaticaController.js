@@ -10,9 +10,10 @@ module.exports = {
 
         //console.log(req.headers);
         let authorization= req.headers.authorization;
-        let endopint= config.url+":"+(config.port)+config.endpointBase+"/enviarmensaje";
-        //console.log(authorization,endopint);
-        
+        //let endopint= config.url+":"+(config.port)+config.endpointBase+"/enviarmensaje";
+        let endopint= config.url+config.endpointBase+"/enviarmensaje";//acomodado para heroku
+
+
         let mensajeDetallado= armarDetalle(datos);
         
 
