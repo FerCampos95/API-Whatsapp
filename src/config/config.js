@@ -11,9 +11,9 @@ module.exports = {
             password: 'contraseña'
         },
         //url: "http://192.168.0.13",
-        url: "http://localhost",
-        //url: "https://herokuapp"
-        port: 4001,
+        //url: "http://localhost",
+        url: "https://api-whatsapp-fer.herokuapp.com",
+        port: process.env.PORT || 4001,
         requestStatus:{
             aproved: 1,
             inProcess: 2,
