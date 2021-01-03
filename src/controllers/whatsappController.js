@@ -434,8 +434,8 @@ async function notificarAlDesarrollador(req){
     console.log("Notificando Fer Campos");
 
     let authorization= req.headers.authorization;
-    let endopint= config.url+":"+(process.env.port || config.port)+config.endpointBase+"/enviarmensaje";
-    
+    let endopint= config.url+":"+(config.port)+config.endpointBase+"/enviarmensaje";
+
     let mensajeDetallado=`_Mensaje automatizado:_ Hola Fernando, estoy utilizando tu Api`;
 
     let headers={

@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const {config} = require ('./config/config');
 
 //Settings
-app.set('port', process.env.PORT || config.port);
+app.set('port', config.port);
 app.set('llave', config.secretKey);
 
 //Middlewares

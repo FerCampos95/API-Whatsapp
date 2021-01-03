@@ -4,7 +4,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../../swagger.json');
 const {config} = require('../config/config.js');
 
-swaggerDocument.servers[0].url= config.url+":"+(process.env.port || config.port)+config.endpointBase;
+swaggerDocument.servers[0].url= config.url+":"+(config.port)+config.endpointBase;
 
 router.use('/api-docs', swaggerUi.serve);
 router.get('/api-docs', swaggerUi.setup(swaggerDocument));

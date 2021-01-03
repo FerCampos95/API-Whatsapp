@@ -11,16 +11,15 @@
             "description": "API WHATSAPP"
         }
     ],
-    "components":{
-        "securitySchemes":{
+    "components": {
+        "securitySchemes": {
             "bearerAuth": {
                 "type": "http",
                 "scheme": "bearer",
                 "bearerFormat": "JWT"
-            }            
-        }  
+            }
+        }
     },
-  
     "paths": {
         "/login": {
             "post": {
@@ -67,8 +66,10 @@
                 "tags": [
                     "Conectar Número"
                 ],
-                "security":[
-                    {"bearerAuth": []}
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
                 ],
                 "summary": "Se hace el pedido del código QR para la autorización de whatsapp web",
                 "operationId": "getQR",
@@ -77,25 +78,25 @@
                         "description": "No se encontraron datos",
                         "content": {}
                     },
-                    "200":{
-                        "description":"Logo image in PNG format",
-                        "content":{
-                           "image/*":{
-                              "schema":{
-                                 "type":"string",
-                                 "format":"binary",
-                                 "name": "image",
-                                 "container_format":{
-                                     "enum":[
-                                         null,
-                                         "png",
-                                         "svg"
-                                     ]
-                                 }
-                              }
-                           }
+                    "200": {
+                        "description": "Logo image in PNG format",
+                        "content": {
+                            "image/*": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary",
+                                    "name": "image",
+                                    "container_format": {
+                                        "enum": [
+                                            null,
+                                            "png",
+                                            "svg"
+                                        ]
+                                    }
+                                }
+                            }
                         }
-                     }
+                    }
                 }
             }
         },
@@ -104,8 +105,10 @@
                 "tags": [
                     "Conectar Número"
                 ],
-                "security":[
-                    {"bearerAuth": []}
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
                 ],
                 "summary": "Se utiliza la ultima conexión realizada a través de QR, o los datos de autorización enviados en el body",
                 "requestBody": {
@@ -113,34 +116,34 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "autorizacion":{
-                                    "type":"object",
+                                "autorizacion": {
+                                    "type": "object",
                                     "properties": {
                                         "clientID": {
-                                        "type": "string"
+                                            "type": "string"
                                         },
                                         "serverToken": {
-                                        "type": "string"
+                                            "type": "string"
                                         },
                                         "clientToken": {
-                                        "type": "string"
+                                            "type": "string"
                                         },
                                         "encKey": {
-                                        "type": "string"
+                                            "type": "string"
                                         },
                                         "macKey": {
-                                        "type": "string"
+                                            "type": "string"
                                         }
                                     }
                                 }
                             },
-                            "example":{
-                                "autorizacion":{
-                                    "clientID":"u1z96CHuJ1HnhQ/VK1cigA==",
-                                    "serverToken":"1@/5iWQP49HJGf2kFSL+Vh8zW8wmRAwW99cTWhJVX8VEK95CALx3f4fnUZMa/p/0bHfkVubYKuF2wgSw==",
-                                    "clientToken":"lua9z3YqpT4aUbwWdu79ZxL0wn01jtRwh524q5OnpV0=",
-                                    "encKey":"Rp+/flZteSPXGXnWpiyuK6xMUGwn0u7L6YnSNmxqfjQ=",
-                                    "macKey":"mzJiu7tiG1jNmWDpAj2CLKh8S8daXXDZ9bBVlZUP4WI="
+                            "example": {
+                                "autorizacion": {
+                                    "clientID": "u1z96CHuJ1HnhQ/VK1cigA==",
+                                    "serverToken": "1@/5iWQP49HJGf2kFSL+Vh8zW8wmRAwW99cTWhJVX8VEK95CALx3f4fnUZMa/p/0bHfkVubYKuF2wgSw==",
+                                    "clientToken": "lua9z3YqpT4aUbwWdu79ZxL0wn01jtRwh524q5OnpV0=",
+                                    "encKey": "Rp+/flZteSPXGXnWpiyuK6xMUGwn0u7L6YnSNmxqfjQ=",
+                                    "macKey": "mzJiu7tiG1jNmWDpAj2CLKh8S8daXXDZ9bBVlZUP4WI="
                                 }
                             }
                         }
@@ -165,8 +168,10 @@
                 "tags": [
                     "Información"
                 ],
-                "security":[
-                    {"bearerAuth": []}
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
                 ],
                 "summary": "Se consulta si esta la conexión activa.",
                 "operationId": "chequearConexion",
@@ -187,8 +192,10 @@
                 "tags": [
                     "Desconectar Número"
                 ],
-                "security":[
-                    {"bearerAuth": []}
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
                 ],
                 "summary": "Cierra la conexión con el servicio de Whatsapp-Web",
                 "operationId": "cerrarConexion",
@@ -209,8 +216,10 @@
                 "tags": [
                     "Enviar Mensaje"
                 ],
-                "security":[
-                    {"bearerAuth": []}
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
                 ],
                 "summary": "Se envia el body al numero especificado",
                 "operationId": "enviarMensaje",
@@ -219,14 +228,14 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type":"object",
+                                "type": "object",
                                 "properties": {
                                     "phone": {
                                         "type": "string",
                                         "example": "5491167070753"
                                     },
                                     "body": {
-                                        "type":"string",
+                                        "type": "string",
                                         "example": "Mensaje a enviar"
                                     }
                                 }
@@ -252,8 +261,10 @@
                 "tags": [
                     "Enviar Mensaje"
                 ],
-                "security":[
-                    {"bearerAuth": []}
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
                 ],
                 "summary": "Se envia el body al jid especificado",
                 "operationId": "enviarMensaje",
@@ -262,14 +273,14 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type":"object",
+                                "type": "object",
                                 "properties": {
                                     "jid": {
                                         "type": "string",
                                         "example": "5491167070753@c.us"
                                     },
                                     "body": {
-                                        "type":"string",
+                                        "type": "string",
                                         "example": "Mensaje a enviar"
                                     }
                                 }
@@ -295,8 +306,10 @@
                 "tags": [
                     "Enviar Mensaje"
                 ],
-                "security":[
-                    {"bearerAuth": []}
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
                 ],
                 "summary": "Se enviara el MESSAGE al numero indicado o, si el campo NAME se completa se buscará ese contacto o grupo",
                 "operationId": "bucleAutomatizado",
@@ -305,18 +318,18 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type":"object",
+                                "type": "object",
                                 "properties": {
                                     "phone": {
                                         "type": "string",
                                         "example": "5491167070753"
                                     },
                                     "name": {
-                                        "type":"string",
+                                        "type": "string",
                                         "example": ""
                                     },
                                     "message": {
-                                        "type":"string",
+                                        "type": "string",
                                         "example": "Mensaje del bucle a enviar"
                                     }
                                 }
@@ -342,8 +355,10 @@
                 "tags": [
                     "Enviar Mensaje"
                 ],
-                "security":[
-                    {"bearerAuth": []}
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
                 ],
                 "summary": "Se enviaran los datos del JSON al numero indicado. ",
                 "operationId": "notificacionAutomatizadda",
@@ -352,73 +367,73 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type":"object",
-                                "properties":{
-                                   "phone":{
-                                      "type":"string"
-                                   },
-                                   "datos":{
-                                      "type":"array",
-                                      "items":[
-                                         {
-                                            "type":"object",
-                                            "properties":{
-                                               "Datos-del-Comprador":{
-                                                  "type":"object",
-                                                  "properties":{
-                                                     "telefono":{
-                                                        "type":"string"
-                                                     },
-                                                     "direccion":{
-                                                        "type":"string"
-                                                     },
-                                                     "email":{
-                                                        "type":"string"
-                                                     }
-                                                  }
-                                               }
+                                "type": "object",
+                                "properties": {
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "datos": {
+                                        "type": "array",
+                                        "items": [
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "Datos-del-Comprador": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "telefono": {
+                                                                "type": "string"
+                                                            },
+                                                            "direccion": {
+                                                                "type": "string"
+                                                            },
+                                                            "email": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "Datos-del-Producto": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "producto": {
+                                                                "type": "string"
+                                                            },
+                                                            "cantidad": {
+                                                                "type": "integer"
+                                                            },
+                                                            "peso": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
-                                         },
-                                         {
-                                            "type":"object",
-                                            "properties":{
-                                               "Datos-del-Producto":{
-                                                  "type":"object",
-                                                  "properties":{
-                                                     "producto":{
-                                                        "type":"string"
-                                                     },
-                                                     "cantidad":{
-                                                        "type":"integer"
-                                                     },
-                                                     "peso":{
-                                                        "type":"string"
-                                                     }
-                                                  }
-                                               }
-                                            }
-                                         }
-                                      ]
-                                   }
+                                        ]
+                                    }
                                 }
                             },
-                            "example":{
-                                "phone":"5491167070753",
-                                "datos":[
-                                   {
-                                      "Datos del Comprador":{
-                                         "Teléfono":"1167070753",
-                                         "Dirección":"callefalsa 123",
-                                         "Email":"email@email.com"
-                                      }
-                                   },
-                                   {
-                                      "Datos del Producto":{
-                                         "Producto":"Desarrollador FullStack",
-                                         "Cantidad":1,
-                                         "Precio":"$1000"
-                                      }
-                                   }
+                            "example": {
+                                "phone": "5491167070753",
+                                "datos": [
+                                    {
+                                        "Datos del Comprador": {
+                                            "Teléfono": "1167070753",
+                                            "Dirección": "callefalsa 123",
+                                            "Email": "email@email.com"
+                                        }
+                                    },
+                                    {
+                                        "Datos del Producto": {
+                                            "Producto": "Desarrollador FullStack",
+                                            "Cantidad": 1,
+                                            "Precio": "$1000"
+                                        }
+                                    }
                                 ]
                             }
                         }
@@ -442,8 +457,10 @@
                 "tags": [
                     "Información"
                 ],
-                "security":[
-                    {"bearerAuth": []}
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
                 ],
                 "summary": "Devuelve las sesiones actualmente activas para iniciar sesión.",
                 "operationId": "consultasesiones",
@@ -464,8 +481,10 @@
                 "tags": [
                     "Información"
                 ],
-                "security":[
-                    {"bearerAuth": []}
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
                 ],
                 "summary": "Devuelve todos los contactos con su JID.",
                 "operationId": "obtener ids",
@@ -486,8 +505,10 @@
                 "tags": [
                     "Información"
                 ],
-                "security":[
-                    {"bearerAuth": []}
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
                 ],
                 "summary": "Devuelve todos los grupos con su JID.",
                 "operationId": "obtener ids",
